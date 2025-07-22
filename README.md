@@ -42,7 +42,7 @@ heart-disease-prediction/
 
 
 
-##Model Overview
+📊 Model Overview
 Model Used: Support Vector Classifier (SVC)
 
 Scaler: StandardScaler from scikit-learn
@@ -74,6 +74,7 @@ Sex
 Smoking
 
 Time (follow-up period)
+
 
 ## ⚙️ How to Run Locally
 
