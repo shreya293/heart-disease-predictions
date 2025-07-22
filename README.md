@@ -42,7 +42,7 @@ heart-disease-prediction/
 
 
 
-📊 Model Overview
+##  📊 Model Overview
 Model Used: Support Vector Classifier (SVC)
 
 Scaler: StandardScaler from scikit-learn
