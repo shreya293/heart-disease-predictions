@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Disease Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+       
+        body {
+        background: url("{{ url_for('static', filename='heart_background.jpg') }}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+       }
+
+
+        .container {
+            max-width: 500px;
+            margin: 80px auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            color: #e60000;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #e60000;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #cc0000;
+        }
+
+        .result {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Heart Disease Prediction</h2>
+
+    {% if result %}
+        <div class="result">{{ result }}</div>
+    {% endif %}
+
+    <form method="POST" action="/predict" onsubmit="return validateForm()">
+        <label>Age:</label>
+        <input type="number" name="age" step="any" required>
+
+        <label>Anaemia (0 or 1):</label>
+        <input type="number" name="anaemia" required>
+
+        <label>Creatinine Phosphokinase:</label>
+        <input type="number" name="creatinine_phosphokinase" step="any" required>
+
+        <label>Diabetes (0 or 1):</label>
+        <input type="number" name="diabetes" required>
+
+        <label>Ejection Fraction:</label>
+        <input type="number" name="ejection_fraction" step="any" required>
+
+        <label>High Blood Pressure (0 or 1):</label>
+        <input type="number" name="high_blood_pressure" required>
+
+        <label>Platelets:</label>
+        <input type="number" name="platelets" step="any" required>
+
+        <label>Serum Creatinine:</label>
+        <input type="number" name="serum_creatinine" step="any" required>
+
+        <label>Serum Sodium:</label>
+        <input type="number" name="serum_sodium" step="any" required>
+
+        <label>Sex (0 = Female, 1 = Male):</label>
+        <input type="number" name="sex" required>
+
+        <label>Smoking (0 or 1):</label>
+        <input type="number" name="smoking" required>
+
+        <label>Follow-up Time:</label>
+        <input type="number" name="time" required>
+
+        <input type="submit" class="btn" value="Predict">
+        <p class="error" id="errorMsg">Please enter valid values (only 0 or 1 for binary fields).</p>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        const binaryFields = ['anaemia', 'diabetes', 'high_blood_pressure', 'sex', 'smoking'];
+        let valid = true;
+
+        binaryFields.forEach(field => {
+            const value = document.getElementsByName(field)[0].value;
+            if (value !== "0" && value !== "1") {
+                valid = false;
+            }
+        });
+
+        const errorMsg = document.getElementById("errorMsg");
+        if (!valid) {
+            errorMsg.style.display = "block";
+            return false;
+        } else {
+            errorMsg.style.display = "none";
+            return true;
+        }
+    }
+</script>
+
+</body>
+</html>
